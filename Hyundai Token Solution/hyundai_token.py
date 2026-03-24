@@ -10,6 +10,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.common.exceptions import WebDriverException
+from urllib.parse import quote
 import chromedriver_autoinstaller
 
 # Detect OS
@@ -110,8 +111,11 @@ print("=" * 60)
 input("\nPress ENTER after login is complete...")
 
 # After login, get the authorization code from redirected URL
+
+redirect_uri = quote("https://prd.eu-ccapi.hyundai.com/api/v1/user/oauth2/token", safe="")
+
 driver.get(
-    f"{BASE_URL}authorize?response_type=code&client_id=6d477c38-3ca4-4cf3-9557-2a1929a94654&redirect_uri=https://prd.eu-ccapi.hyundai.com:8080/api/v1/user/oauth2/token&lang=en&state=ccsp"
+    f"{BASE_URL}authorize?response_type=code&client_id=6d477c38-3ca4-4cf3-9557-2a1929a94654&redirect_uri={redirect_uri}&lang=en&state=ccsp"
 )
 time.sleep(2)
 
